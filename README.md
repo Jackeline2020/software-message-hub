@@ -28,14 +28,14 @@ O projeto utiliza DynamoDB (emulado via Docker) como banco de dados, autenticaç
 ## Tecnologias Utilizadas
 A arquitetura segue o padrão de camadas do NestJS, organizada em Controller → Service → Repository (DynamoDB) -> Strategy
 
-**NestJS**: Framework para construção da API.
-**DynamoDB Local (Docker)**: Banco de dados NoSQL utilizado para persistência das mensagens.
-**Dynamoose**: ODM para trabalhar com DynamoDB em Node.js.
-**JWT (Json Web Token)**: Autenticação simplificada para proteger os endpoints.
-**Winston**: Logger para auditoria e debugging.
-**Datadog**: Observabilidade (métricas e traces).
-**Jest**: Framework de testes unitários.
-**Docker Compose**: Orquestração do banco DynamoDB local.
+- **NestJS**: Framework para construção da API.
+- **DynamoDB Local (Docker)**: Banco de dados NoSQL utilizado para persistência das mensagens.
+- **Dynamoose**: ODM para trabalhar com DynamoDB em Node.js.
+- **JWT (Json Web Token)**: Autenticação simplificada para proteger os endpoints.
+- **Winston**: Logger para auditoria e debugging.
+- **Datadog**: Observabilidade (métricas e traces).
+- **Jest**: Framework de testes unitários.
+- **Docker Compose**: Orquestração do banco DynamoDB local.
 
 ## Executar a aplicação
 1. **Pré-requisitos**
@@ -96,13 +96,13 @@ services:
 ```
 
 ## Decisões Técnicas
-NestJS escolhido pela modularidade e boa integração com TypeScript.
-DynamoDB pela proposta de NoSQL escalável (emulado com Docker para desenvolvimento).
-Dynamoose facilita a abstração do banco sem precisar escrever chamadas brutas da SDK.
-JWT fake apenas para simular autenticação, garantindo controle de acesso aos endpoints.
-Winston + Datadog permitem logs estruturados e métricas, alinhados com boas práticas de observabilidade.
-Jest utilizado para garantir qualidade do código através dos testes.
-Docker Compose para que o ambiente seja facilmente replicável.
+- NestJS escolhido pela modularidade e boa integração com TypeScript.
+- DynamoDB pela proposta de NoSQL escalável (emulado com Docker para desenvolvimento).
+- Dynamoose facilita a abstração do banco sem precisar escrever chamadas brutas da SDK.
+- JWT fake apenas para simular autenticação, garantindo controle de acesso aos endpoints.
+- Winston + Datadog permitem logs estruturados e métricas, alinhados com boas práticas de observabilidade.
+- Jest utilizado para garantir qualidade do código através dos testes.
+- Docker Compose para que o ambiente seja facilmente replicável.
 
 Estrutura de banco de dados
 - forRoot: Configuração global do banco, onde inicializamos a conexão com o DynamoDB e registramos providers genéricos disponíveis para toda a aplicação.

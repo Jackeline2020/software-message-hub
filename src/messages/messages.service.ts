@@ -22,7 +22,7 @@ export class MessagesService {
             logger.info(`Enviando mensagem para: ${body.sender}`);
             return {
                 ...await body,
-                createdAt: this._validationStrategy.formatDate(body.createdAt),
+                createdAt: await this._validationStrategy.formatDate(body.createdAt),
             }
 
         } catch (err) {
@@ -38,7 +38,7 @@ export class MessagesService {
 
             return {
                 ...await body,
-                createdAt: this._validationStrategy.formatDate(body.createdAt),
+                createdAt: await this._validationStrategy.formatDate(body.createdAt),
             }
 
         } catch (err) {
@@ -56,10 +56,12 @@ export class MessagesService {
                 .eq(sender)
                 .exec();
 
-            return results.toJSON().map(result => ({
-                ...result,
-                createdAt: this._validationStrategy.formatDate(result.createdAt)
-            }));
+            return await Promise.all(
+                results.toJSON().map(async result => ({
+                    ...result,
+                    createdAt: await this._validationStrategy.formatDate(result.createdAt)
+                }))
+            );
 
         } catch (err) {
             logger.error('Error ao buscar mensagem por remetente:', err);
@@ -69,8 +71,8 @@ export class MessagesService {
 
     async findByPeriod(startDate: string, endDate: string) {
         try {
-            const start = this._validationStrategy.formatToYYYYMMDD(new Date(startDate));
-            const end = this._validationStrategy.formatToYYYYMMDD(new Date(endDate));
+            const start = await this._validationStrategy.formatToYYYYMMDD(new Date(startDate));
+            const end = await this._validationStrategy.formatToYYYYMMDD(new Date(endDate));
 
             logger.info(`Buscando mensagem por data inicial: ${startDate} e data final: ${endDate}`);
             const messages = await this._messageModel
@@ -81,10 +83,12 @@ export class MessagesService {
                 .using('status-createdAt-index')
                 .exec();
 
-            return messages.toJSON().map(message => ({
-                ...message,
-                createdAt: this._validationStrategy.formatDate(message.createdAt)
-            }));
+            return await Promise.all(
+                messages.toJSON().map(async message => ({
+                    ...message,
+                    createdAt: await this._validationStrategy.formatDate(message.createdAt)
+                }))
+            );
 
         } catch (err) {
             logger.error('Error ao buscar mensagem por periodo:', err);
@@ -99,7 +103,7 @@ export class MessagesService {
 
             return {
                 ...await body,
-                createdAt: this._validationStrategy.formatDate(body.createdAt),
+                createdAt: await this._validationStrategy.formatDate(body.createdAt),
             }
 
         } catch (err) {
